@@ -10,39 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
     
     - name: Upload DLL References
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: missing-dlls
         path: References
         
     - name: Wait for DLLs
       run: |
-        echo "Please upload the required DLLs to the 'missing-dlls' artifact"
+        echo "Please upload the required DLLs to the References folder in the repository"
         echo "Then re-run this workflow manually from the Actions tab"
       if: ${{ github.event_name != 'workflow_dispatch' }}
       
-    - name: Download DLL References
-      uses: actions/download-artifact@v3
-      with:
-        name: reference-dlls
-        path: References
-      if: ${{ github.event_name == 'workflow_dispatch' }}
-      
     - name: Build
       run: dotnet build -c Release
-      if: ${{ github.event_name == 'workflow_dispatch' }}
+      if: ${{ success() && hashFiles('References/*.dll') != '' }}
       
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: WeaponAbilityCustomizerMod
         path: bin/Release/net6.0/WeaponAbilityCustomizerMod.dll
-      if: ${{ github.event_name == 'workflow_dispatch' }}
+      if: ${{ success() && hashFiles('References/*.dll') != '' }}
+
