@@ -39,4 +39,3 @@ jobs:
         name: WeaponAbilityCustomizerMod
         path: bin/Release/net6.0/WeaponAbilityCustomizerMod.dll
       if: ${{ success() && hashFiles('References/*.dll') != '' }}
-
