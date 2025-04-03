@@ -18,24 +18,14 @@ jobs:
         dotnet-version: 6.0.x
     
     - name: Upload DLL References
-      uses: actions/upload-artifact@v4
-      with:
-        name: missing-dlls
-        path: References
-        
-    - name: Wait for DLLs
       run: |
-        echo "Please upload the required DLLs to the References folder in the repository"
-        echo "Then re-run this workflow manually from the Actions tab"
-      if: ${{ github.event_name != 'workflow_dispatch' }}
-      
+        echo "Make sure to upload all required DLLs to the References folder in the repository"
+    
     - name: Build
-      run: dotnet build -c Release
-      if: ${{ success() && hashFiles('References/*.dll') != '' }}
-      
+      run: dotnet build -c Release WeaponAbilityCustomizer.csproj
+    
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: WeaponAbilityCustomizerMod
         path: bin/Release/net6.0/WeaponAbilityCustomizerMod.dll
-      if: ${{ success() && hashFiles('References/*.dll') != '' }}
