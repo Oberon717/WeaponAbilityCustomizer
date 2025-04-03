@@ -68,3 +68,4 @@ namespace WeaponAbilityCustomizer
         public const string PLUGIN_VERSION = "1.0.0";
     }
 }
+
