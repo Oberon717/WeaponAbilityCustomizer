@@ -8,19 +8,19 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-  <!-- Remove all PackageReferences -->
   
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>References\0Harmony.dll</HintPath>
     </Reference>
-    <!-- Use only one BepInEx reference -->
     <Reference Include="BepInEx">
       <HintPath>References\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="ProjectM">
       <HintPath>References\ProjectM.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Gameplay.Systems">
+      <HintPath>References\ProjectM.Gameplay.Systems.dll</HintPath>
     </Reference>
     <Reference Include="ProjectM.Shared">
       <HintPath>References\ProjectM.Shared.dll</HintPath>
@@ -28,8 +28,20 @@
     <Reference Include="Stunlock.Core">
       <HintPath>References\Stunlock.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Stunlock.Network">
+      <HintPath>References\Stunlock.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Stunlock.Network.Steam">
+      <HintPath>References\Stunlock.Network.Steam.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Entities">
       <HintPath>References\Unity.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>References\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Physics">
+      <HintPath>References\Unity.Physics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>References\UnityEngine.CoreModule.dll</HintPath>
@@ -40,11 +52,8 @@
     <Reference Include="VampireCommandFramework">
       <HintPath>References\VampireCommandFramework.dll</HintPath>
     </Reference>
-    <!-- Add WeaponForge back -->
     <Reference Include="WeaponForge">
       <HintPath>References\WeaponForge.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
-
-
