@@ -1,10 +1,11 @@
-usiusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using ProjectM;
+using ProjectM.Gameplay.Systems;
 using ProjectM.Network;
 using Unity.Entities;
 using VampireCommandFramework;
@@ -18,20 +19,6 @@ namespace WeaponAbilityCustomizer
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Logger;
-
-        // Define the type that we're missing
-        public class AbilityBar_AssignAbilitySystem : SystemBase
-        {
-            protected override void OnUpdate() { }
-        }
-
-        // Define a CommandContext class if it's missing
-        public class CommandContext
-        {
-            public User User { get; set; }
-            public Entity SenderCharacterEntity { get; set; }
-            public Entity SenderUserEntity { get; set; }
-        }
 
         private void Awake()
         {
@@ -48,17 +35,30 @@ namespace WeaponAbilityCustomizer
             CommandRegistry.RegisterAll(this);
         }
 
-        // Rest of your plugin code...
-        // (I'm not including it all here, you can keep the original implementation)
-        
         [Command("ability", "Test command for weapon ability customization")]
         private void OnAbilityCommand(CommandContext context)
         {
             // Your command implementation
             Logger.LogInfo("Ability command executed");
+            
+            // Example: Respond to the player
+            context.Reply("Weapon Ability Customizer is working!");
         }
-        
-        // Harmony patch methods...
+
+        // Example Harmony patch for AbilityBar_AssignAbilitySystem
+        [HarmonyPatch(typeof(AbilityBar_AssignAbilitySystem), nameof(AbilityBar_AssignAbilitySystem.OnUpdate))]
+        private class AbilityBarPatch
+        {
+            private static bool Prefix(AbilityBar_AssignAbilitySystem __instance)
+            {
+                // Your patch implementation
+                Logger.LogInfo("AbilityBar_AssignAbilitySystem.OnUpdate patched!");
+                
+                // Return true to allow the original method to run
+                // Return false to skip the original method
+                return true;
+            }
+        }
     }
 
     public static class PluginInfo
